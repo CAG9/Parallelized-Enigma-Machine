@@ -23,7 +23,7 @@
 
 **GNU General Public License v3.0**
 
-<center><h1><strong><a name = "resum">Resume</a></strong></h1></center> 
+<center><h1><strong><a name = "resum">Introduction</a></strong></h1></center> 
 
 * About the model of Enigma Machine, cipher and decipher with parallelized computing
 

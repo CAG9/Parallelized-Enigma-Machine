@@ -1,7 +1,9 @@
+# Reflectores: Tres posibles
 reflectors = [ 'EJMZALYXVBWFCRQUONTSPIKHGD', #A    
               'YRUHQSLDPXNGOKMIEBFZCWVJAT',        
               'FVPJIAOYEDRZXWGCTKUQSBNMHL'] #C
 
+# Rotores: Ocho posibles
 con_rotors = [ 'EKMFLGDQVZNTOWYHXUSPAIBRCJ', #1       
             'AJDKSIRUXBLHWTMCQGZNPYFVOE',        
             'BDFHJLCPRTXVZNYEIWGAKMUSQO',        
@@ -11,6 +13,7 @@ con_rotors = [ 'EKMFLGDQVZNTOWYHXUSPAIBRCJ', #1
             'NZJHGRCXMYSWBOUFAIVLPEKQDT',        
             'FKQHTLXOCBJSPDZRAMEWNIUYGV'] #8      
 
+# Rotores de retorno: Ocho posibles
 rotors_return = ['UWYGADFPVZBECKMTHXSLRINQOJ',
                   'AJPCZWRLFBDKOTYUQGENHXMIVS',
                   'TAGBPCSDQEUFVNZHYIXJWLRKOM',
@@ -43,7 +46,7 @@ class enigmaM3:
     rotors = ""      
     plugboard = ""                   
     pos_ini= "" #Posicion inicio se actualiza con cada caracter       
-    intern_position = ('A','A','A')              
+    intern_position = ('A','A','A')  # Posición Inicial             
     notch = (('Q',),('E',),('V',),('J',),('Z',),('Z','M'),('Z','M'),('Z','M'))
     opts = []
 

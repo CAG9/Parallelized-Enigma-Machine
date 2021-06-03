@@ -6,6 +6,10 @@
   <li><a href="#licence">Licence</a></li>
   <li><a href="#introduction">Introduction</a></li>
   <li><a href="#objectives">General Objectives</a></li>
+  <li><a href="#requirements">Requirements</a></li>
+  <li><a href="#installation">Installation</a></li>
+  <li><a href="#run">Run</a></li>
+  <li><a href="#results">Results</a></li>
   
 </ul>
 
@@ -32,4 +36,14 @@
 * Understand the Enigma Machine
 * Simulate the Enigma Machine
 * Implement the parallelized decipher something like Turing did in the WW2 
+
+
+<center><h1><strong><a name = "requirements">Requirements</a></strong></h1></center> 
+
+
+<center><h1><strong><a name = "installation">Installation</a></strong></h1></center> 
+
+<center><h1><strong><a name = "run">Run</a></strong></h1></center> 
+
+<center><h1><strong><a name = "results">Results</a></strong></h1></center> 
 

@@ -192,7 +192,32 @@ char change(char character[],char *charset,int n){//def change(char,charset=alph
 
 
 
+void set_intern_position(struct enigmaM3 *enigma, char pos_int[]){
+    enigma -> intern_position = pos_int;
+}
 
+void set_plugboard(struct enigmaM3 *enigma, char plugboard[]){
+    enigma -> plugboard = plugboard;
+}
+
+void reset(struct enigmaM3 *enigma, char lastopts[]){
+    enigma -> opts  = lastopts;
+}
+
+char apply_rotor(char character[],int n,char *rotor,char *alphabet ){
+    char new_character = change(character,rotor,n);
+    return change(character,alphabet,-n);
+}
+
+
+char reflecting(char character[],char *alphabet,char *reflector   ){
+    int n = 0;
+    char newchar = change(character,enigma.reflector,n) ;
+    return newchar;
+}
+
+
+  
 
 
 

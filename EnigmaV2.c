@@ -40,6 +40,7 @@ void normalized_text(char text[],char alphabet[],char newstring[]);
 void upper(char str[]);
 int char_to_pos(char txt[],char alphabet[]);
 char change(char character[],char charset[],int n);
+int ordc(char character[]);
 
 
 
@@ -169,19 +170,14 @@ void imprimir(char text[]){
 }
 
 
-int char_to_pos(char txt[],char alphabet[]){//def char_to_pos(char):       
-    int i =0;
-    int limit = strlen(txt);
-    int pos;
-    for(i=0;i<limit;i++){
-        if(txt[0] == alphabet[i]){
-            pos =  i;
-            break;
-        }
-    }
+int char_to_pos(char txt[]){
+    int pos = ordc(txt)-65;
     return pos;
-
 }
+
+
+
+
 
 char change(char character[],char *charset,int n){//def change(char,charset=alphabet,n=0):
 
@@ -189,7 +185,6 @@ char change(char character[],char *charset,int n){//def change(char,charset=alph
     char newchar = charset[pos % 26];
     return newchar; 
 }
-
 
 
 void set_intern_position(struct enigmaM3 *enigma, char pos_int[]){
@@ -210,35 +205,88 @@ char apply_rotor(char character[],int n,char *rotor,char *alphabet ){
 }
 
 
-char reflecting(char character[],char *alphabet,char *reflector   ){
+char reflecting(char character[],char *alphabet,struct enigmaM3 *enigma   ){
     int n = 0;
     char newchar = change(character,enigma.reflector,n) ;
     return newchar;
 }
 
 
-  
+void rotor_forward(struct enigmaM3 *enigma,char *alphabet){
+    for(int i = 0;i<2;i++){
+        if(enigma.pos_ini[1] == enigma.notch[enigma.rotors[1]][0]){
+            enigma.pos_ini[0] = change(enigma.pos_ini[0],alphabet,1);
+            enigma.pos_ini[1] = change(enigma.pos_ini[1],alphabet,1);
+        }
+    }
+
+    for(int i = 0;i<2;i++){
+            if(enigma.pos_ini[2] == enigma.notch[enigma.rotors[2]][0]){
+                enigma.pos_ini[1] = change(enigma.pos_ini[1],alphabet,1);
+            }
+        }
+    enigma.pos_ini[2] = change(enigma.pos_ini[2],alphabet,1);
+}
+
+int ordc(char character[]){
+    
+    int i= (int)character[0];
+    return i;
+    
+}
+
+char apply_plugboard(struct enigmaM3 *enigma,char character[],char plugboard[]){
+    int limit1 = sizeof(plugboard)/sizeof(int);
+    for(int i =0;i<limit1;i++){
+        if character == i[0]{
+            char newchar[] = i[1];
+        }
+        if character == i[1]{
+            char newchar[] = i[0];
+        }
+    }
+    return newchar;
+}
+
+char cipher_letter(struct enigmaM3 *enigma,char character[],char plugboard[],char *alphabet){
+    char character2 = apply_plugboard(*enigma,character,plugboard);
+    rotor_forward(*enigma,alphabet);
+    for(int i=2; i>=0; i--){
+        int n = ordc(enigma.pos_ini[i]) - ordc(enigma.intern_position[i]);
+        character2 = apply_rotor(character2,n,con_rotors[enigma.rotors[i]],alphabet);
+
+    }
+    character2 = reflecting(character2,alphabet,enigma)
+    for(int i = 0;i>3;i++){
+        n = ordc(enigma.pos_ini[i]) - ordc(enigma.intern_position[i]);
+        character2 = apply_rotor(character2,n,rotors_return[enigma.rotors[i]],alphabet);
+    }
+    character2 = apply_plugboard(enigma,character2,plugboard)
+    return character2
 
 
 
+}
+
+     
+char cipher(chat text[],struct enigmaM3 *enigma,char plugboard[],char *alphabet){
+    int limit = strlen(txt);
+    char output[limit];
+    for(int = 0; i<limit;i++){
+        char ch = cipher_letter(enigma,text[i],plugboard,alphabet);
+        strncat(output, &ch, 1);
+    }
+    return output;
+
+}
+
+
+char  decipher(chat text[],struct enigmaM3 *enigma,char plugboard[],char *alphabet){
+
+    char decode[] = cipher(text,enigma,plugboard,alphabet);
+
+    return decode;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

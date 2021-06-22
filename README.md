@@ -36,6 +36,7 @@
 * Understand the Enigma Machine
 * Simulate the Enigma Machine
 * Implement the parallelized decipher something like Turing did in the WW2 
+* Try to crack it with parallelized brute force 
 
 
 <center><h1><strong><a name = "requirements">Requirements</a></strong></h1></center> 

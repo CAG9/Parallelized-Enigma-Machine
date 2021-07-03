@@ -71,8 +71,8 @@ def comprobar(t_letter,t_number,msg):
     #myM3.reset()
     decipher_text = myM3.decipher(msg)
 
-    print(t_letter,t_number)
-    print(decipher_text)
+    #print(t_letter,t_number)
+    #print(decipher_text)
 
     if "FUHRER" in decipher_text:
         print("Message decoded!")

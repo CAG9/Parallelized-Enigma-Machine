@@ -125,36 +125,37 @@ class enigmaM3:
     def decipher(self,text):
         return self.cipher(text)
 
-#Enigma default config
-print("Write the message")
-plain = input()
-plain = plain.upper()
+if __name__ == "__main__":
+    #Enigma default config
+    print("Write the message")
+    plain = input()
+    plain = plain.upper()
 
 
-#Rotors initial pos
-initial = ('A','B','C')
-#Rotors order
-rotors = (4,1,3)
-#Reflectors
-reflector = 'B'
-#Intern Position
-intern_pos = ('A','A','A')
-#plugboard
-plugboard = [('A','M'),('F','I'),('N','V'),('P','S'),('T','U'),('W','Z')]
+    #Rotors initial pos
+    initial = ('A','B','C')
+    #Rotors order
+    rotors = (4,1,3)
+    #Reflectors
+    reflector = 'B'
+    #Intern Position
+    intern_pos = ('A','A','A')
+    #plugboard
+    plugboard = [('A','M'),('F','I'),('N','V'),('P','S'),('T','U'),('W','Z')]
 
-enigma = enigmaM3(rotors,reflector,initial,intern_pos,plugboard)
-cipher_text = enigma.cipher(plain)
+    enigma = enigmaM3(rotors,reflector,initial,intern_pos,plugboard)
+    cipher_text = enigma.cipher(plain)
 
-print("---------------")
-print("|   Encode    |")
-print("--------------")
-print(f"Message: {plain}")
-print(f"Encode message: {cipher_text}\n")
+    print("---------------")
+    print("|   Encode    |")
+    print("--------------")
+    print(f"Message: {plain}")
+    print(f"Encode message: {cipher_text}\n")
 
-print("---------------")
-print("|   Decipher    |")
-print("--------------")
-print(f"Encode message: {cipher_text}")
-enigma.reset()
-decipher_text = enigma.decipher(cipher_text)
-print(f"Decode message: {decipher_text}")
+    print("---------------")
+    print("|   Decipher    |")
+    print("--------------")
+    print(f"Encode message: {cipher_text}")
+    enigma.reset()
+    decipher_text = enigma.decipher(cipher_text)
+    print(f"Decode message: {decipher_text}")

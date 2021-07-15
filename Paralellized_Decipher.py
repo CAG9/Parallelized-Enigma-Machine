@@ -1,4 +1,5 @@
 import multiprocessing as mp
+from multiprocessing import Pool
 from pythonenigma import enigmaM3
 import time
 #from itertools import permutations
@@ -93,7 +94,6 @@ def comprobar(t_letter,t_number,msg):
 
 def rotors_number_pos(iterable,r,letters,message):
     pool = tuple(iterable)
-
     n = len(pool)
     r = n if r is None else r
     if r > n:
@@ -103,7 +103,6 @@ def rotors_number_pos(iterable,r,letters,message):
     
 
     initial = tuple(pool[i] for i in indices[:r])
-
     
     res=comprobar(letters,initial,message)
 
@@ -111,7 +110,6 @@ def rotors_number_pos(iterable,r,letters,message):
         return True
 
     while n:
-        count =0
         for i in reversed(range(r)):
             cycles[i] -= 1
             if cycles[i] == 0:
@@ -122,10 +120,6 @@ def rotors_number_pos(iterable,r,letters,message):
                 indices[i], indices[-j] = indices[-j], indices[i]
 
                 next_stp = tuple(pool[i] for i in indices[:r])
-
-                if count == 4:
-
-                    exit()
                 
                 res=comprobar(letters,next_stp,message)
 
@@ -133,7 +127,6 @@ def rotors_number_pos(iterable,r,letters,message):
                     return True
 
                 break
-        
         else:
             return
 
@@ -208,7 +201,12 @@ if __name__ == "__main__":
 
 
 
-    rotors_letter_pos(rotors_letter,rotors_number,3,message)
+    #rotors_letter_pos(rotors_letter,rotors_number,3,message)
+   
+    with Pool(processes=4) as pool:
+        result = pool.map(rotors_letter_pos,(rotors_letter,rotors_number,3,message))
+        
+    
     print("--- %s seconds --- " %(time.time() - start_time))	
 
 

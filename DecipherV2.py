@@ -1,18 +1,17 @@
+#!/usr/bin/env python3
+"""
+License GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+Contact:
+    César Arcos González: cesar99ag@comunidad.unam.mx 
+    Brian Kalid García Olivo: briankalid@comunidad.unam.mx
+    José Vidal Cardona Rosas: ladivcr@comunidad.unam.mx
+"""
 import multiprocessing as mp
 from pythonenigma import enigmaM3
 import time
 import itertools
 import string
-
-def GetCombinations():
-    Initial = list(string.ascii_uppercase)
-    Initial_combination = list(itertools.product(Initial,repeat=3))
-
-    Rotors = [1,2,3,4,5,6,7,8]
-    Rotors_combination = list(itertools.permutations(Rotors,r=3))
-    c = list(itertools.product(Initial_combination, Rotors_combination))
-    return c
-
+import pandas as pd
 
 def createM3(rotors, initial):
     """A function to create a enigmaM3 machine
@@ -37,72 +36,35 @@ def createM3(rotors, initial):
     return enigma_decipher
 
 
-def comprobar(t_letter,t_number,msg):
+def FindOut(t_letter,t_number,msg):
     myM3 = createM3(t_number, t_letter)
-
-    
-    #myM3.reset()
     decipher_text = myM3.decipher(msg)
-
-    #print(t_letter,t_number)
-    #print(decipher_text)
-
     if "FUHRER" in decipher_text:
         print("Message decoded!")
         print(decipher_text)
         print("Numbers ",t_number)
         print("Letters ",t_letter)
-        exit()
 
         return True
 
     return False
 
-
 if __name__ == "__main__":
-    #* the message to decipher
+    # the message to decipher
     msm = open ('message.txt','r')
     message = msm.read()
     message = message.upper()
     msm.close()
+    # Load all combinations
+    df = pd.read_csv("EnigmaCombinations.csv")
+    Combinations = df['Combinations'].tolist()
     start_time = time.time()
-
-    Initial = list(string.ascii_uppercase)
-    Initial_combination = list(itertools.product(Initial,repeat=3))
-
-    Rotors = [1,2,3,4,5,6,7,8]
-    Rotors_combination = list(itertools.permutations(Rotors,r=3))
-    all_combinations = list(itertools.product(Initial_combination, Rotors_combination))
-
-    #* Enigma default config 
-    # (This is what we need to find in our program)
-
-    #* Rotors initial pos
-    # initial = ('A','B','C') # Objective
-    # Omitimos la ñ, dado que trabajamos con el alfabeto inglés
-    #rotors_letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    #initial = rotors_initial_pos(rotors_letter) # Get all permutations with three-letters
-
-    #* Rotors order
-    # rotors = (4,1,3) # Objective
-    #rotors_number = (0,1, 2, 3, 4, 5, 6, 7, 8)
-    #rotors = rotors_order(rotors_number)
-
-
-    # ! FALTA DESARROLLAR EL BUCLE ANIDADO PARA PROBAR LAS CONFIGURACIONES
-    # ! Es aquí dónde usare: multiprocessing.process
-    # * https://rico-schmidt.name/pymotw-3/multiprocessing/basics.html
-    #advance = 1
-    #('A', 'C', 'D') (3, 7, 5)
-
-    #all_combinations = GetCombinations
-    for combination in all_combinations:
-            check = comprobar(combination[0],combination[1],message)
-            if check:
-                break
-
-
-    #rotors_letter_pos(rotors_letter,rotors_number,3,message)
+    for combination in Combinations:
+        comb1 = (combination[3],combination[8],combination[13])
+        comb2 = (int(combination[19]),int(combination[22]),int(combination[25]))
+        check = FindOut(comb1,comb2,message)
+        if check:
+            break
     print("--- %s seconds --- " %(time.time() - start_time))	
 
 

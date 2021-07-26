@@ -1,3 +1,11 @@
+/*
+License GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+Contact:
+    César Arcos González: cesar99ag@comunidad.unam.mx 
+    Brian Kalid García Olivo: briankalid@comunidad.unam.mx
+    José Vidal Cardona Rosas: ladivcr@comunidad.unam.mx
+*/
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>

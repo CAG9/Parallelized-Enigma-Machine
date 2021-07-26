@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+"""
+License GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+Contact:
+    César Arcos González: cesar99ag@comunidad.unam.mx 
+    Brian Kalid García Olivo: briankalid@comunidad.unam.mx
+    José Vidal Cardona Rosas: ladivcr@comunidad.unam.mx
+"""
 # Reflectores: Tres posibles
 reflectors = [ 'EJMZALYXVBWFCRQUONTSPIKHGD', #A    
               'YRUHQSLDPXNGOKMIEBFZCWVJAT',        

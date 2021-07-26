@@ -35,16 +35,21 @@
 
 
 <center><h1><strong><a name = "Requirements">Requirements</a></strong></h1></center> 
-THis project was develop in Linux
+
+This project was develop in Linux
+
 - Python 3  `sudo apt-get install python3.8`
 - Numpy `pip install numpy` or `conda install numpy`
 - Pandas `pip install pandas` or `conda install pandas`
 - Mpi4py `pip install mpi4py` or `conda install -c anaconda mpi4py`
 - 4 cores CPU
+
 <center><h1><strong><a name = "Installation">Installation</a></strong></h1></center> 
+
 Clone this repository and access to PythonScripts Folder, type and run ina terminal `python combination.py` to create all enigma machine combinations. On this occasion we only use 5904428 combinations.
 
 <center><h1><strong><a name = "Run">Run</a></strong></h1></center> 
+
 Open a terminal and move to the folder "PythonScripts" and run sequentially the following commands:
 
 * python DecipherV2.py

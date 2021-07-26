@@ -56,7 +56,7 @@ Ensure your pc have at least 2 cores to run the previous commands.
 
 <center><h1><strong><a name = "Results">Results</a></strong></h1></center> 
 | Results /Cores  | 1 Core         | 2 Cores                     | 3 Cores                  | 4 Cores |
-| ------------- | -------------  | -------------           | -------------            | ------------- |
+| --- | --- | ---           | ---            | --- |
 |  Script       |  DecipherV2.py | ParallelizedDecipher.py |ParallelizedDecipher.py   | ParallelizedDecipher.py |
 | Time          | 220.4618 seconds| 233.5454 seconds | Coming soon              | Coming soon |
 

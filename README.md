@@ -46,7 +46,7 @@ This project was develop in Linux
 
 <center><h1><strong><a name = "Installation">Installation</a></strong></h1></center> 
 
-Clone this repository and access to PythonScripts Folder, type and run ina terminal `python combination.py` to create all enigma machine combinations. On this occasion we only use 5904428 combinations.
+Clone this repository and access to PythonScripts Folder, type and run in a terminal `python combination.py` to create all enigma machine combinations. On this occasion we only use 5904428 combinations.
 
 <center><h1><strong><a name = "Run">Run</a></strong></h1></center> 
 

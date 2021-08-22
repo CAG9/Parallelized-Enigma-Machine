@@ -10,12 +10,16 @@ Contact:
 import multiprocessing as mp
 from pythonenigma import enigmaM3
 import time
-import itertools
+from itertools import islice
 import string
 import numpy
 from mpi4py import MPI
 import pandas as pd
 import sys
+import csv
+import gc
+
+
 
 def createM3(rotors, initial):
     """A function to create a enigmaM3 machine
@@ -64,6 +68,16 @@ if __name__ == "__main__":
     
     start_time_read = time.time()
 
+    data_per_rank = 5904428  #len(data)
+    num_per_rank = data_per_rank // size #1476384 per core if there are 4
+    lower_bound = rank * num_per_rank   #start_bound + rank * num_per_rank
+    upper_bound = (rank + 1) * num_per_rank #start_bound + (rank + 1) * num_per_rank
+
+    #print("rank",rank,"Combinatios",lower_bound,upper_bound)
+    #sys.stdout.flush()
+
+
+
     print("%s:Reading txt..."%(rank))
     sys.stdout.flush()
     msm = open ('message.txt','r')
@@ -71,33 +85,47 @@ if __name__ == "__main__":
     message = message.upper()
     msm.close()
     print("%s:end txt..."%(rank))
+    
     print("%s:Reading csv..."%(rank))
     sys.stdout.flush()
 
+    data = []
 
-
-    df = pd.read_csv("EnigmaCombinations.csv")
-    data = df['Combinations'].tolist()
-
+	    
+    #df = pd.read_csv("EnigmaCombinations.csv")
+    #data = df['Combinations'].tolist()
+    
 
     
-    print("%s:end csv..."%(rank))
     sys.stdout.flush()
     # Parallelizing
-    data_per_rank = len(data)
-    num_per_rank = data_per_rank // size #1476384 per core if there are 4
+    #data_per_rank = 5904428  #len(data)
+    #num_per_rank = data_per_rank // size #1476384 per core if there are 4
     #start_bound = 0
     # split for  cores 
     lower_bound = rank * num_per_rank   #start_bound + rank * num_per_rank
     upper_bound = (rank + 1) * num_per_rank #start_bound + (rank + 1) * num_per_rank
-    Combinations = []
+    #Combinations = [] ############################################################################
+    
+
     print("%s:Starting split"%(rank))
     sys.stdout.flush()
-    for i in range(lower_bound, upper_bound):
-        Combinations.append(data[i]) 
+    #for i in range(lower_bound, upper_bound):
+    #   Combinations.append(data[i]) 
+    Combinations = []
+    with open('EnigmaCombinations.csv','rt') as f:
+        reader = csv.reader(f,delimiter=',')
+        for row in islice(reader,lower_bound,upper_bound):
+            if row == ['Combinations']:
+                continue
+            else:
+                Combinations.append(row)
+    
+    print("%s:end csv..."%(rank))
+    sys.stdout.flush()
     print("%s:Finishing split [%s]"%(rank,len(Combinations)))
     sys.stdout.flush()
-    del(data)
+    #del(data)
     Complete_time_combination = time.time() - start_time_read
     
     comm.Barrier()
@@ -115,13 +143,20 @@ if __name__ == "__main__":
             sys.stdout.flush()
             t0 = time.time()
 
-        combination = Combinations[i]
-        comb1 = (combination[3],combination[8],combination[13])
-        comb2 = (int(combination[19]),int(combination[22]),int(combination[25]))
+        combination = str(Combinations[i])
+        #print(combination)
+        #sys.stdout.flush()
+        #print(combination[3])
+        #sys.stdout.flush()
+        
+        comb1 = (combination[5],combination[10],combination[15])
+        comb2 = (int(combination[21]),int(combination[24]),int(combination[27]))
         check = FindOut(comb1,comb2,message)
+        gc.enable()
         if check:
             print("|--- rank %s in %s seconds ---| " %(rank,time.time() - start_time))
             sys.stdout.flush()
             i = num_per_rank+1
+            exit(rank)
             break
     MPI.Finalize()

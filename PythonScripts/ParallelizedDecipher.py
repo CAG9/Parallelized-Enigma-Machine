@@ -51,8 +51,8 @@ def FindOut(t_letter,t_number,msg):
     if "FUHRER" in decipher_text:
         print("Message decoded!")
         print(decipher_text)
-        print("Numbers ",t_number)
-        print("Letters ",t_letter)
+        print("Rotors ",t_number)
+        print("Initial ",t_letter)
 
         return True
 
@@ -157,6 +157,5 @@ if __name__ == "__main__":
             print("|--- rank %s in %s seconds ---| " %(rank,time.time() - start_time))
             sys.stdout.flush()
             i = num_per_rank+1
-            exit(rank)
-            break
+            MPI.COMM_WORLD.Abort()
     MPI.Finalize()

@@ -7,6 +7,7 @@ Contact:
     José Vidal Cardona Rosas: ladivcr@comunidad.unam.mx
     Victor De la Luz:         vdelaluz@enesmorelia.unam.mx
 """
+
 import multiprocessing as mp
 from pythonenigma import enigmaM3
 import time
@@ -18,8 +19,6 @@ import pandas as pd
 import sys
 import csv
 import gc
-
-
 
 def createM3(rotors, initial):
     """A function to create a enigmaM3 machine
@@ -61,7 +60,6 @@ def FindOut(t_letter,t_number,msg):
 
 if __name__ == "__main__":
     #* the message to decipher
-    #MPI.Init()
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank() # the rank of each core
     size = comm.Get_size()# Cores size
@@ -72,42 +70,21 @@ if __name__ == "__main__":
     num_per_rank = data_per_rank // size #1476384 per core if there are 4
     lower_bound = rank * num_per_rank   #start_bound + rank * num_per_rank
     upper_bound = (rank + 1) * num_per_rank #start_bound + (rank + 1) * num_per_rank
-
-    #print("rank",rank,"Combinatios",lower_bound,upper_bound)
-    #sys.stdout.flush()
-
-
-
     print("%s:Reading txt..."%(rank))
     sys.stdout.flush()
     msm = open ('message.txt','r')
     message = msm.read()
     message = message.upper()
     msm.close()
-    print("%s:end txt..."%(rank))
-    
+    print("%s:end txt..."%(rank))    
     print("%s:Reading csv..."%(rank))
     sys.stdout.flush()
-
     data = []
-
-	    
-    #df = pd.read_csv("EnigmaCombinations.csv")
-    #data = df['Combinations'].tolist()
-    
-
-    
     sys.stdout.flush()
     # Parallelizing
-    #data_per_rank = 5904428  #len(data)
-    #num_per_rank = data_per_rank // size #1476384 per core if there are 4
-    #start_bound = 0
     # split for  cores 
     lower_bound = rank * num_per_rank   #start_bound + rank * num_per_rank
     upper_bound = (rank + 1) * num_per_rank #start_bound + (rank + 1) * num_per_rank
-    #Combinations = [] ############################################################################
-    
-
     print("%s:Starting split"%(rank))
     sys.stdout.flush()
     #for i in range(lower_bound, upper_bound):
@@ -127,12 +104,9 @@ if __name__ == "__main__":
     sys.stdout.flush()
     #del(data)
     Complete_time_combination = time.time() - start_time_read
-    
     comm.Barrier()
-
     print("%s:Searching..."%(rank))
     sys.stdout.flush()
-    
     start_time = time.time()
     printing = num_per_rank // 100
     t1=t0=time.time()
@@ -142,13 +116,7 @@ if __name__ == "__main__":
             print("%s:[%0.0i %s]"%(rank,(i/num_per_rank)*100, t1-t0))
             sys.stdout.flush()
             t0 = time.time()
-
         combination = str(Combinations[i])
-        #print(combination)
-        #sys.stdout.flush()
-        #print(combination[3])
-        #sys.stdout.flush()
-        
         comb1 = (combination[5],combination[10],combination[15])
         comb2 = (int(combination[21]),int(combination[24]),int(combination[27]))
         check = FindOut(comb1,comb2,message)
